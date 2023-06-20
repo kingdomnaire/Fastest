@@ -1,1 +1,1 @@
-# Faster Finger
+# Fastest Finger
