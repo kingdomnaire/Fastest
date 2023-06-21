@@ -13,7 +13,7 @@
           <div class="text-right text-gray-800">
             <p class="float-left font-bold">Fastest Fingers</p>
             <p class="text-sm leading-3">Score</p>
-            <p class="font-bold">60</p>
+            <p class="font-bold">{{ score }}</p>
           </div>
   
           <!-- timer container -->
@@ -59,7 +59,7 @@
           <!-- progress indicator container -->
           <div class="mt-8 text-center">
             <div class="h-1 w-12 bg-gray-800 rounded-full mx-auto"></div>
-            <p class="font-bold text-gray-800">2/10</p>
+            <p class="font-bold text-gray-800">{{questionCounter}}/{{questions.length}}</p>
           </div>
         </div>
       </div>
@@ -72,6 +72,9 @@ export default{
     name:'QuickGame',
     setup(){
       //data
+      let canClick = true;
+      let score = ref(0);
+
       let questionCounter = ref(0);
       const currentQuestion = ref({
         question:"",
@@ -108,6 +111,7 @@ export default{
       ];
 
       const loadQuestions = ()=> {
+        canClick = true;
         //check fif there are more questions to load.
         if (questions.length > questionCounter.value){
           currentQuestion.value = questions[questionCounter.value];
@@ -137,10 +141,12 @@ export default{
       }
 
       const onOptionClicked = (choice, item) => {
-        const divContainer = itemRef[item];
+        if (canClick){
+          const divContainer = itemRef[item];
         const optionID = item+1;
         if(currentQuestion.value.answer == optionID){
           console.log('correct Answer');
+          score.value += 1;
           divContainer.classList.add("option-correct");
           divContainer.classList.remove("option-default");
         }else{
@@ -148,9 +154,15 @@ export default{
           divContainer.classList.add("option-wrong");
           divContainer.classList.remove("option-default");
         }
+        canClick = false;
         //go to next question
         clearSelected(divContainer);
         console.log(choice, item)
+
+        }else{
+          console.log("cant select question");
+        }
+        
       }
 
       //life cycle hooks
@@ -162,6 +174,7 @@ export default{
       return {
         currentQuestion,
         questions,
+        score,
         questionCounter,
         loadQuestions,
         onOptionClicked,
