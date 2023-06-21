@@ -1,7 +1,10 @@
 <template>
     <main class="flex h-screen items-center justify-center bg-gray-200">
+
+      <!-- Quiz overlay -->
+      <QuizCompleteOverlay v-if="endOfQuiz" :score="score"></QuizCompleteOverlay>
+
       <!-- quiz container -->
-  
       <div
         class="overflow-hidden bg-white flex-none container relative shadow-lg rounded-lg px-12 py-6"
       >
@@ -69,138 +72,144 @@
   </template>
 
 <script>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref } from 'vue';
+import QuizCompleteOverlay from '@/components/QuizCompleteOverlay.vue';
 export default{
-    name:'QuickGame',
-    setup(){
-      //data
-      let canClick = true;
-      let score = ref(0);
-      let timer = ref(100);
+    name: "QuickGame",
+    setup() {
+        //data
+        let canClick = true;
+        let score = ref(0);
+        let timer = ref(100);
+        let endOfQuiz = ref(false);
+        let questionCounter = ref(0);
+        const currentQuestion = ref({
+            question: "",
+            answer: 1,
+            choices: []
+        });
+        const questions = [
+            {
+                question: "Who was the father of Methuselah?",
+                answer: 3,
+                choices: ["Adam", "Noah", "Enoch", "Lamech"],
+            },
+            {
+                question: "Who was the first king of Israel?",
+                answer: 1,
+                choices: ["Saul", "David", "Solomon", "Samuel"],
+            },
+            {
+                question: "Who wrote the book of Job?",
+                answer: 1,
+                choices: ["Moses", "David", "Solomon", "Job himself"],
+            },
+            {
+                question: "Who was the high priest at the time of Jesus' crucifixion",
+                answer: 1,
+                choices: ["Caiaphas", "Annas", "Nicodemus", "Gamaliel"],
+            },
+            {
+                question: "Who was the mother of John the Baptist?",
+                answer: 2,
+                choices: ["Mary", "Elizabeth", "Rachel", "Sarah"],
+            },
+        ];
+        const loadQuestions = () => {
+            canClick = true;
+            //check fif there are more questions to load.
+            if (questions.length > questionCounter.value) {
+                timer.value = 100;
+                currentQuestion.value = questions[questionCounter.value];
+                console.log("Current Question", currentQuestion.value);
+                questionCounter.value++;
+            }
+            else {
+                // no more question
+                endOfQuiz.value = true;
+                console.log("Out of questions");
+            }
+        };
+        //methods/functions to know what was clicked
+        let itemRef = [];
+        const optionChosen = (element) => {
+            if (element) {
+                itemRef.push(element);
+            }
+        };
+        const clearSelected = (divSelected) => {
+            setTimeout(() => {
+                divSelected.classList.remove("option-correct");
+                divSelected.classList.remove("option-wrong");
+                divSelected.classList.add("option-default");
+                loadQuestions();
+                timer.value = 100;
+            }, 1000);
+        };
+        const onOptionClicked = (choice, item) => {
+            if (canClick) {
+                const divContainer = itemRef[item];
+                const optionID = item + 1;
+                if (currentQuestion.value.answer == optionID) {
+                    console.log("correct Answer");
+                    score.value += 1;
+                    divContainer.classList.add("option-correct");
+                    divContainer.classList.remove("option-default");
+                }
+                else {
+                    console.log("wrong answer");
+                    divContainer.classList.add("option-wrong");
+                    divContainer.classList.remove("option-default");
+                }
+                //timer.value = 100;
+                canClick = false;
+                //go to next question
+                clearSelected(divContainer);
+                console.log(choice, item);
+            }
+            else {
+                console.log("cant select question");
+            }
+        };
+        const countDownTimer = function () {
+            let interval = setInterval(() => {
+                if (timer.value > 0) {
+                    timer.value--;
+                }
+                else {
+                    console.log("timer is up");
+                    clearInterval(interval);
+                    loadQuestions();
+                }
+            }, 100);
+        };
 
-      let questionCounter = ref(0);
-      const currentQuestion = ref({
-        question:"",
-        answer:1,
-        choices:[]
-      })
+        //when the Quiz ends
+        const onQuizEnd = function(){
+          score.value;
 
-      const questions = [
-        {
-          question: "Who was the father of Methuselah?",
-          answer: 3,
-          choices: ["Adam","Noah","Enoch","Lamech"],
-        },
-        {
-          question: "Who was the first king of Israel?",
-          answer: 1,
-          choices: ["Saul","David","Solomon","Samuel"],
-        },
-        {
-          question: "Who wrote the book of Job?",
-          answer: 1,
-          choices: ["Moses","David","Solomon","Job himself"],
-        },
-        {
-          question: "Who was the high priest at the time of Jesus' crucifixion",
-          answer: 1,
-          choices: ["Caiaphas","Annas","Nicodemus","Gamaliel"],
-        },
-        {
-          question: "Who was the mother of John the Baptist?",
-          answer: 2,
-          choices: ["Mary","Elizabeth","Rachel","Sarah"],
-        },
-      ];
-
-      const loadQuestions = ()=> {
-        canClick = true;
-        //check fif there are more questions to load.
-        if (questions.length > questionCounter.value){
-          timer.value=100;
-          currentQuestion.value = questions[questionCounter.value];
-          console.log('Current Question', currentQuestion.value);
-          questionCounter.value++;
-        }else{
-          // no more question
-          console.log('Out of questions');
-        }
-      };
-
-      //methods/functions to know what was clicked
-      let itemRef = []
-      const optionChosen = (element) => {
-        if(element){
-          itemRef.push(element)
-        }
-      };
-
-      const clearSelected = (divSelected) => {
-        setTimeout(() => {
-          divSelected.classList.remove("option-correct");
-          divSelected.classList.remove("option-wrong");
-          divSelected.classList.add("option-default");
-          loadQuestions();
-          timer.value = 100;
-        },1000);
-      }
-
-      const onOptionClicked = (choice, item) => {
-        if (canClick){
-          const divContainer = itemRef[item];
-        const optionID = item+1;
-        if(currentQuestion.value.answer == optionID){
-          console.log('correct Answer');
-          score.value += 1;
-          divContainer.classList.add("option-correct");
-          divContainer.classList.remove("option-default");
-        }else{
-          console.log('wrong answer');
-          divContainer.classList.add("option-wrong");
-          divContainer.classList.remove("option-default");
-        }
-        //timer.value = 100;
-        canClick = false;
-        //go to next question
-        clearSelected(divContainer);
-        console.log(choice, item)
-
-        }else{
-          console.log("cant select question");
-        }
-        
-      };
-
-      const countDownTimer = function (){
-        let interval = setInterval(() => {
-         if (timer.value > 0){
-          timer.value--;
-         }else{
-          console.log('timer is up');
-          clearInterval(interval);
-          loadQuestions();
-         }
-        }, 100);
-      };
-
-      //life cycle hooks
-      onMounted(() => {
-        loadQuestions();
-        countDownTimer();
-      });
-
-      //return
-      return {
-        timer,
-        currentQuestion,
-        questions,
-        score,
-        questionCounter,
-        loadQuestions,
-        onOptionClicked,
-        optionChosen,
-      }
+          //
+        };
+        //life cycle hooks
+        onMounted(() => {
+            loadQuestions();
+            countDownTimer();
+        });
+        //return
+        return {
+            timer,
+            currentQuestion,
+            questions,
+            score,
+            questionCounter,
+            loadQuestions,
+            onOptionClicked,
+            optionChosen,
+            endOfQuiz,
+            onQuizEnd,
+        };
     },
+    components: { QuizCompleteOverlay }
 } 
 </script>
   
