@@ -18,7 +18,9 @@
   
           <!-- timer container -->
           <div class="bg-white shadow-lg p-1 rounded-full w-full h-5 mt-4">
-            <div class="bg-blue-700 rounded-full w-11/12 h-full"></div>
+            <div class="bg-blue-700 rounded-full w-11/12 h-full"
+            :style="`width: ${timer}%`"
+            ></div>
           </div>
   
           <!-- question container -->
@@ -74,6 +76,7 @@ export default{
       //data
       let canClick = true;
       let score = ref(0);
+      let timer = ref(100);
 
       let questionCounter = ref(0);
       const currentQuestion = ref({
@@ -114,6 +117,7 @@ export default{
         canClick = true;
         //check fif there are more questions to load.
         if (questions.length > questionCounter.value){
+          timer.value=100;
           currentQuestion.value = questions[questionCounter.value];
           console.log('Current Question', currentQuestion.value);
           questionCounter.value++;
@@ -137,6 +141,7 @@ export default{
           divSelected.classList.remove("option-wrong");
           divSelected.classList.add("option-default");
           loadQuestions();
+          timer.value = 100;
         },1000);
       }
 
@@ -154,6 +159,7 @@ export default{
           divContainer.classList.add("option-wrong");
           divContainer.classList.remove("option-default");
         }
+        //timer.value = 100;
         canClick = false;
         //go to next question
         clearSelected(divContainer);
@@ -163,15 +169,29 @@ export default{
           console.log("cant select question");
         }
         
-      }
+      };
+
+      const countDownTimer = function (){
+        let interval = setInterval(() => {
+         if (timer.value > 0){
+          timer.value--;
+         }else{
+          console.log('timer is up');
+          clearInterval(interval);
+          loadQuestions();
+         }
+        }, 100);
+      };
 
       //life cycle hooks
       onMounted(() => {
         loadQuestions();
+        countDownTimer();
       });
 
       //return
       return {
+        timer,
         currentQuestion,
         questions,
         score,
