@@ -1,4 +1,6 @@
 <template>
+
+import router from '@/router';
     <div class="w-screen h-screen absolute z-30 bg-blue-950 bg-opacity-80 flex justify-center items-center">
         
         <div class="bg-blue-900 p-4 text-center text-white">
@@ -8,7 +10,9 @@
             <!--Buttons-->
         <div class="flex justify-around">
             <div class="rounded-full py-1 w-28 border cursor-pointer
-            hover:text-black hover:bg-white">View all result</div>
+            hover:text-black hover:bg-white">
+            <router-link to="/dashboard">View all result</router-link>
+        </div>
         </div>
         </div>
     </div>
@@ -16,7 +20,7 @@
 
 <script>
 export default{
-    name:'QuizCompleteOverlay',
-    props:['score'],
+    name: "QuizCompleteOverlay",
+    props: ["score"],
 }
 </script>

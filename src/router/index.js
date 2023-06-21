@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import QuickGameViewVue from '../views/QuickGameView.vue'
+import QuickGameView from '../views/QuickGameView.vue'
+import PlayerScoreView from '@/views/dashboard/PlayerScoreView.vue'
 
 
 
@@ -7,7 +8,12 @@ const routes = [
   {
     path: '/',
     name: 'QuickGame',
-    component: QuickGameViewVue,
+    component: QuickGameView,
+  },
+  {
+    path: '/dashboard',
+    name: 'Dashboard',
+    component: PlayerScoreView,
   },
 
   // redirect
