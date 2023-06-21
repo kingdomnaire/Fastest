@@ -26,7 +26,7 @@
             class="rounded-lg bg-gray-100 p-2 neumorph-1 text-center font-bold text-gray-800 mt-8"
           >
             <div class="bg-white p-5">
-              Who was the father of Methuselah?
+              {{ currentQuestion.question }}
             </div>
           </div>
   
@@ -34,40 +34,11 @@
   
           <div class="mt-8">
             <!-- option container -->
-            <div
-              class="neumorph-1 option-wrong bg-gray-100 p-2 rounded-lg mb-3 relative"
-            >
+            <div v-for="(choice, item) in currentQuestion.choices" :key="item">
               <div
-                class="bg-blue-700 p-1 transform rotate-45 rounded-md h-10 w-10 text-white font-bold absolute right-0 top-0 shadow-md"
-              >
-                <p class="transform -rotate-45">+1</p>
-              </div>
-              <div class="rounded-lg font-bold flex p-2">
-                <!-- option ID -->
-                <div class="p-3 rounded-lg">A</div>
-  
-                <!-- option name -->
-                <div class="flex items-center pl-6">Adam</div>
-              </div>
-            </div>
-            <!-- option container -->
-            <div class="neumorph-1 option-correct bg-gray-100 p-2 rounded-lg mb-3 relative">
-              <div
-                class="bg-blue-700 p-1 transform rotate-45 rounded-md h-10 w-10 text-white font-bold absolute right-0 top-0 shadow-md"
-              >
-                <p class="transform -rotate-45">+1</p>
-              </div>
-              <div class=" rounded-lg font-bold flex p-2">
-                <!-- option ID -->
-                <div class="p-3 rounded-lg">B</div>
-  
-                <!-- option name -->
-                <div class="flex items-center pl-6">Enoch</div>
-              </div>
-            </div>
-            <!-- option container -->
-            <div
               class="neumorph-1 option-default bg-gray-100 p-2 rounded-lg mb-3 relative"
+              :ref="optionChosen"
+              @click="onOptionClicked(choice,item)"
             >
               <div
                 class="bg-blue-700 p-1 transform rotate-45 rounded-md h-10 w-10 text-white font-bold absolute right-0 top-0 shadow-md"
@@ -76,28 +47,12 @@
               </div>
               <div class="rounded-lg font-bold flex p-2">
                 <!-- option ID -->
-                <div class="p-3 rounded-lg">C</div>
+                <div class="p-3 rounded-lg">{{ item }}</div>
   
                 <!-- option name -->
-                <div class="flex items-center pl-6">Noah</div>
+                <div class="flex items-center pl-6">{{ choice }}</div>
               </div>
             </div>
-            <!-- option container -->
-            <div
-              class="neumorph-1 option-default bg-gray-100 p-2 rounded-lg mb-3 relative"
-            >
-              <div
-                class="bg-blue-700 p-1 transform rotate-45 rounded-md h-10 w-10 text-white font-bold absolute right-0 top-0 shadow-md"
-              >
-                <p class="transform -rotate-45">+1</p>
-              </div>
-              <div class="rounded-lg font-bold flex p-2">
-                <!-- option ID --> 
-                <div class="p-3 rounded-lg">D</div>
-  
-                <!-- option name -->
-                <div class="flex items-center pl-6">Lamech</div>
-              </div>
             </div>
           </div>
   
@@ -112,9 +67,89 @@
   </template>
 
 <script>
+import { onMounted, ref } from 'vue'
 export default{
-    name:'QuickGame'
-}
+    name:'QuickGame',
+    setup(){
+      //data
+      let questionCounter = ref(0);
+      const currentQuestion = ref({
+        question:"",
+        answer:1,
+        choices:[]
+      })
+
+      const questions = [
+        {
+          question: "Who was the father of Methuselah?",
+          answer: 3,
+          choices: ["Adam","Noah","Enoch","Lamech"],
+        },
+        {
+          question: "Who was the first king of Israel?",
+          answer: 1,
+          choices: ["Saul","David","Solomon","Samuel"],
+        },
+        {
+          question: "Who wrote the book of Job?",
+          answer: 1,
+          choices: ["Moses","David","Solomon","Job himself"],
+        },
+        {
+          question: "Who was the high priest at the time of Jesus' crucifixion",
+          answer: 1,
+          choices: ["Caiaphas","Annas","Nicodemus","Gamaliel"],
+        },
+        {
+          question: "Who was the mother of John the Baptist?",
+          answer: 2,
+          choices: ["Mary","Elizabeth","Rachel","Sarah"],
+        },
+      ];
+
+      const onQuizStart = ()=> {
+        currentQuestion.value = questions[questionCounter.value];
+      };
+
+      //methods/functions to know what was clicked
+      let itemRef = []
+      const optionChosen = (element) => {
+        if(element){
+          itemRef.push(element)
+        }
+      }
+
+      const onOptionClicked = (choice, item) => {
+        const divContainer = itemRef[item];
+        const optionID = item+1;
+        if(currentQuestion.value.answer == optionID){
+          console.log('correct Answer');
+          divContainer.classList.add("option-correct");
+          divContainer.classList.remove("option-default");
+        }else{
+          console.log('wrong answer');
+          divContainer.classList.add("option-wrong");
+          divContainer.classList.remove("option-default");
+        }
+        console.log(choice, item)
+      }
+
+      //life cycle hooks
+      onMounted(() => {
+        onQuizStart();
+      });
+
+      //return
+      return {
+        currentQuestion,
+        questions,
+        questionCounter,
+        onQuizStart,
+        onOptionClicked,
+        optionChosen,
+      }
+    },
+} 
 </script>
   
   <style scoped>
