@@ -6,7 +6,7 @@
 
       <!-- quiz container -->
       <div
-        class="overflow-hidden bg-white flex-none container relative shadow-lg rounded-lg px-12 py-6"
+        class="overflow-hidden h-full bg-white flex-none container relative shadow-lg rounded-lg px-12 py-6"
       >
         
   
