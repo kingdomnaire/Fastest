@@ -107,8 +107,16 @@ export default{
         },
       ];
 
-      const onQuizStart = ()=> {
-        currentQuestion.value = questions[questionCounter.value];
+      const loadQuestions = ()=> {
+        //check fif there are more questions to load.
+        if (questions.length > questionCounter.value){
+          currentQuestion.value = questions[questionCounter.value];
+          console.log('Current Question', currentQuestion.value);
+          questionCounter.value++;
+        }else{
+          // no more question
+          console.log('Out of questions');
+        }
       };
 
       //methods/functions to know what was clicked
@@ -117,6 +125,15 @@ export default{
         if(element){
           itemRef.push(element)
         }
+      };
+
+      const clearSelected = (divSelected) => {
+        setTimeout(() => {
+          divSelected.classList.remove("option-correct");
+          divSelected.classList.remove("option-wrong");
+          divSelected.classList.add("option-default");
+          loadQuestions();
+        },1000);
       }
 
       const onOptionClicked = (choice, item) => {
@@ -131,12 +148,14 @@ export default{
           divContainer.classList.add("option-wrong");
           divContainer.classList.remove("option-default");
         }
+        //go to next question
+        clearSelected(divContainer);
         console.log(choice, item)
       }
 
       //life cycle hooks
       onMounted(() => {
-        onQuizStart();
+        loadQuestions();
       });
 
       //return
@@ -144,7 +163,7 @@ export default{
         currentQuestion,
         questions,
         questionCounter,
-        onQuizStart,
+        loadQuestions,
         onOptionClicked,
         optionChosen,
       }
