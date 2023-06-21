@@ -126,9 +126,8 @@ export default{
             }
             else {
                 // no more question
-                
                 endOfQuiz.value = true;
-                console.log("Out of questions");
+                //console.log("Out of questions");
             }
         };
         //methods/functions to know what was clicked
@@ -165,14 +164,9 @@ export default{
                 }
                 /// timer.value = 100;
                   canClick = false;
-                  // go to next question
-                  if (questionCounter.value == questions.length ) {
-                    // Last question clicked, stop the timer
-                    endOfQuiz.value=true;
-                    clearInterval(interval);
-                  } else {
+                  const timestamp = new Date().toISOString(); // Get the current timestamp
+                  saveQuestionResponse(currentQuestion.value.question, timestamp); // Save the question response with timestamp
                     clearSelected(divContainer);
-                  }
                   console.log(choice, item);
                       }
             else {
@@ -187,13 +181,20 @@ export default{
                     timer.value--;
                 }
                 else {
-                    console.log("timer is up");
+                    //console.log("timer is up");
                     clearInterval(interval);
                     loadQuestions();
                     countDownTimer();
                 }
             }, 100);
         };
+
+        // Save question response to the database (dummy implementation)
+    const saveQuestionResponse = (question, timestamp) => {
+      console.log("Question:", question);
+      console.log("Timestamp:", timestamp);
+      // Here you can make an API call to send the question and timestamp to your backend or perform any other database operations
+    };
 
         //when the Quiz ends
         const onQuizEnd = function(){
