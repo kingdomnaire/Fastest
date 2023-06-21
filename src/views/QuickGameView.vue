@@ -126,6 +126,7 @@ export default{
             }
             else {
                 // no more question
+                
                 endOfQuiz.value = true;
                 console.log("Out of questions");
             }
@@ -146,6 +147,7 @@ export default{
                 timer.value = 100;
             }, 1000);
         };
+
         const onOptionClicked = (choice, item) => {
             if (canClick) {
                 const divContainer = itemRef[item];
@@ -161,18 +163,26 @@ export default{
                     divContainer.classList.add("option-wrong");
                     divContainer.classList.remove("option-default");
                 }
-                //timer.value = 100;
-                canClick = false;
-                //go to next question
-                clearSelected(divContainer);
-                console.log(choice, item);
-            }
+                /// timer.value = 100;
+                  canClick = false;
+                  // go to next question
+                  if (questionCounter.value == questions.length ) {
+                    // Last question clicked, stop the timer
+                    endOfQuiz.value=true;
+                    clearInterval(interval);
+                  } else {
+                    clearSelected(divContainer);
+                  }
+                  console.log(choice, item);
+                      }
             else {
                 console.log("cant select question");
             }
         };
+
+        let interval; // Variable to hold the timer interval
         const countDownTimer = function () {
-            let interval = setInterval(() => {
+            interval = setInterval(() => {
                 if (timer.value > 0) {
                     timer.value--;
                 }
@@ -180,6 +190,7 @@ export default{
                     console.log("timer is up");
                     clearInterval(interval);
                     loadQuestions();
+                    countDownTimer();
                 }
             }, 100);
         };
