@@ -1,6 +1,4 @@
 <template>
-
-import router from '@/router';
     <div class="w-screen h-screen absolute z-30 bg-blue-950 bg-opacity-80 flex justify-center items-center">
         
         <div class="bg-blue-900 p-4 text-center text-white">

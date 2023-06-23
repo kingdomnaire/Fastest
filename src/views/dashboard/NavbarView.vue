@@ -64,7 +64,9 @@
               </router-link>
             </li>
             <li class="text-sm font-bold text-gray-800 hover:text-blue-400">
-              Score
+              <router-link to="#">
+                Score
+              </router-link>
             </li>
           </ul>
         </nav>

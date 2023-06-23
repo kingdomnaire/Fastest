@@ -65,6 +65,7 @@
           <div class="mt-8 text-center">
             <div class="h-1 w-12 bg-gray-800 rounded-full mx-auto"></div>
             <p class="font-bold text-gray-800">{{questionCounter}}/{{questions.length}}</p>
+            <p class="text-gray-800">created for who wants to be a Rabbi © {{ new Date().getFullYear() }}</p>
           </div>
         </div>
       </div>
@@ -192,7 +193,7 @@ export default{
         // Save question response to the database (dummy implementation)
     const saveQuestionResponse = (question, timestamp) => {
       console.log("Question:", question);
-      console.log("Timestamp:", timestamp);
+      console.log("Timestamp:",  new Date(timestamp).toLocaleString());
       // Here you can make an API call to send the question and timestamp to your backend or perform any other database operations
     };
 
