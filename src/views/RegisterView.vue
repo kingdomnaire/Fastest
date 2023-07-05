@@ -10,12 +10,12 @@
           <div>
             <label for="text" class="block font-bold text-lg leading-6 text-gray-100">Full name</label>
             <div class="mt-2 flex gap-3">
-              <input id="email" name="email" type="text" autocomplete="text" 
+              <input name="text" type="text" autocomplete="text" 
               class="block w-full rounded-md border-0 py-1.5 text-blue-900 shadow-sm ring-1 
               ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset
                focus:ring-indigo-600 sm:text-sm sm:leading-6 px-1 " placeholder="First Name" />
 
-               <input id="email" name="email" type="text" autocomplete="text"  
+               <input  name="text" type="text" autocomplete="text"  
               class="block w-full rounded-md border-0 py-1.5 text-blue-900 shadow-sm ring-1 
               ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset
                focus:ring-indigo-600 sm:text-sm sm:leading-6 px-1" placeholder="Last Name"/>
@@ -25,7 +25,7 @@
           <div>
             <label for="text" class="block font-bold text-lg leading-6 text-gray-100">Church</label>
             <div class="mt-2">
-              <input id="email" name="email" type="text" autocomplete="text"  
+              <input  name="text" type="text" autocomplete="text"  
               class="block w-full rounded-md border-0 py-1.5 text-blue-900 shadow-sm ring-1 
               ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset
                focus:ring-indigo-600 sm:text-sm sm:leading-6" />
@@ -34,16 +34,16 @@
           <div>
             <label for="date" class="block font-bold text-lg leading-6 text-gray-100">Date of birth</label>
             <div class="mt-2">
-              <input id="email" name="email" type="date"   
+              <input name="date" type="date"   
               class="block w-full rounded-md border-0 py-1.5 text-blue-900 shadow-sm ring-1 
               ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset
-               focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+               focus:ring-indigo-600 sm:text-sm sm:leading-6 px-2" />
             </div>
           </div>
           <div>
             <label for="email" class="block font-bold text-lg leading-6 text-gray-100">Email address</label>
             <div class="mt-2">
-              <input id="email" name="email" type="email" autocomplete="email"  
+              <input name="email" type="email" autocomplete="email"  
               class="block w-full rounded-md border-0 py-1.5 text-blue-900 shadow-sm ring-1 
               ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset
                focus:ring-indigo-600 sm:text-sm sm:leading-6" />
@@ -58,7 +58,7 @@
               </div>
             </div>
             <div class="mt-2">
-              <input id="password" name="password" type="password" autocomplete="current-password" 
+              <input name="password" type="password" autocomplete="current-password" 
               class="block w-full rounded-md border-0 py-1.5 text-blue-900 shadow-sm ring-1 ring-inset
                ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 
                sm:text-sm sm:leading-6" />
