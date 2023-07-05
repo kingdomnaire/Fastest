@@ -11,11 +11,13 @@ const routes = [
     path: '/',
     name: 'QuickGame',
     component: QuickGameView,
+    meta: { requiresAuth: true },
   },
   {
     path: '/dashboard',
     name: 'Dashboard',
     component: PlayerScoreView,
+    meta: { requiresAuth: true },
   },
   {
     path: '/login',
@@ -31,20 +33,38 @@ const routes = [
   // redirect
   {
     path: '/home',
-    redirect: '/'
+    redirect: '/',
+    meta: { requiresAuth: true },
   },
 
   // catch-all route for undefined routes
   {
     path: '/:pathMatch(.*)*',
-    redirect: '/'
+    redirect: '/',
   },
 ]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
-})
+});
+
+const isAuthenticated = () =>{
+  const storedLogin = true //localStorage.getItem('loginRequest');
+  
+  // Check if both email and password are present in local storage
+  return JSON.parse(storedLogin || '{}');
+}
+
+router.beforeEach((to, from, next) => {
+  const isLoggedIn = isAuthenticated().email
+
+  if (to.meta.requiresAuth && isLoggedIn) {
+    next('/login')
+    }else{
+      next()
+    }
+});
 
 
 

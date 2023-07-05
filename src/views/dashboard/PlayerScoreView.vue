@@ -2,14 +2,20 @@
     <div>
         <NavbarView/>
         <div class="w-screen h-5/5 absolute z-30 bg-opacity-80 flex justify-center">
-            <div class="flex gap-6 grid-cols-2 h-20 text-blue-950 font-bold text-lg pt-10"> 
-                <div>player Name</div>
-                <div class="">Timestamp</div>
-            </div>
-            <div class="flex gap-6 bg-gray-400 -ml-56 mt-24 h-10 z-50 text-blue-950">
-                    <div>Emmanuel Amadi</div>
-                    <div>your time</div>
-            </div>
+            <table class="">
+            <thead>
+                <tr class="bg-blue-600 w-auto h-10 text-gray-300">
+                <th>Player Name</th>
+                <th>Time Stamp</th>
+                </tr>
+            </thead>
+            <tbody class="">
+                <tr class="bg-blue-900 w-auto h-10 text-gray-200 font-bold">
+                <td class="pr-10 pl-4">Emmanuel Amadi Okechukwu</td>
+                <td class="pr-4 pl-2">7/5/2023, 10:31:06 AM:724</td>
+                </tr>
+            </tbody>
+            </table>
         </div>
     </div>
 </template>
