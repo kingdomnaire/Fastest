@@ -8,8 +8,6 @@
       <div
         class="overflow-hidden h-full bg-white flex-none container relative shadow-lg rounded-lg px-12 py-6"
       >
-        
-  
         <!-- contents -->
         <div class="relative z-20">
           <!-- score container -->
@@ -70,7 +68,7 @@
         </div>
       </div>
     </main>
-  </template>
+</template>
 
 <script>
 import { onMounted, ref } from 'vue';
@@ -193,7 +191,9 @@ export default{
         // Save question response to the database (dummy implementation)
     const saveQuestionResponse = (question, timestamp) => {
       console.log("Question:", question);
-      console.log("Timestamp:",  new Date(timestamp).toLocaleString());
+      const date = new Date(timestamp);
+      const formattedTimestamp = `${date.toLocaleString()}:${date.getMilliseconds()}`;
+      console.log("Timestamp:", formattedTimestamp);
       // Here you can make an API call to send the question and timestamp to your backend or perform any other database operations
     };
 

@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import QuickGameView from '../views/QuickGameView.vue'
 import PlayerScoreView from '@/views/dashboard/PlayerScoreView.vue'
+import LoginView from '@/views/LoginView.vue'
 
 
 
@@ -14,6 +15,11 @@ const routes = [
     path: '/dashboard',
     name: 'Dashboard',
     component: PlayerScoreView,
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: LoginView,
   },
 
   // redirect
