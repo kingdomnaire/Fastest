@@ -62,10 +62,11 @@
               </div>
             </div>
             <div class="mt-2">
-              <input name="password" type="password" autocomplete="current-password" 
+              <input name="password" type="password" autocomplete="current-password"  placeholder="Enter Password"
               class="block w-full rounded-md border-0 py-1.5 px-2 text-blue-900 font-bold shadow-sm ring-1 ring-inset
                ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 
                sm:text-sm sm:leading-6" />
+               <span v-if="password.length < 8" class="text-red-500 text-sm">Password must be at least 8 characters long.</span>
             </div>
           </div>
   
@@ -136,6 +137,11 @@ methods: {
         alert('You need to be above 13 and below 25 years old to register.');
         return;
       }
+      
+      if (this.password.length < 8) {
+      alert('Password must be at least 8 characters long.');
+      return;
+    }
 
       try {
         const formData = new FormData();
