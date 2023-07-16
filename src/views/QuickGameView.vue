@@ -194,7 +194,8 @@ export default{
       const date = new Date(timestamp);
       const formattedTimestamp = `${date.toLocaleString()}:${date.getMilliseconds()}`;
       console.log("Timestamp:", formattedTimestamp);
-      // Here you can make an API call to send the question and timestamp to your backend or perform any other database operations
+      // Here you can make an API call to send the question and 
+      //timestamp to your backend or perform any other database operations
     };
 
         //when the Quiz ends

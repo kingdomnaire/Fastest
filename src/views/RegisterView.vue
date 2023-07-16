@@ -6,16 +6,25 @@
       </div>
   
       <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form class="space-y-6" action="#" method="POST">
+        <form class="space-y-6" @submit.prevent="registerUser"  method="POST">
+          <div>
+            <label for="email" class="block font-bold text-lg leading-6 text-gray-100">Email address</label>
+            <div class="mt-2">
+              <input name="email" type="email" autocomplete="email"  
+              class="block w-full rounded-md border-0 py-1.5 px-2 font-bold text-blue-900 shadow-sm ring-1 
+              ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset
+               focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+            </div>
+          </div>
           <div>
             <label for="text" class="block font-bold text-lg leading-6 text-gray-100">Full name</label>
             <div class="mt-2 flex gap-3">
-              <input name="text" type="text" autocomplete="text" 
+              <input name="firstName" type="text" autocomplete="text" 
               class="block w-full rounded-md border-0 py-1.5 text-blue-900 shadow-sm ring-1 
               ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset
                focus:ring-indigo-600 sm:text-sm sm:leading-6 px-1 " placeholder="First Name" />
 
-               <input  name="text" type="text" autocomplete="text"  
+               <input name="lastName" type="text" autocomplete="text"  
               class="block w-full rounded-md border-0 py-1.5 text-blue-900 shadow-sm ring-1 
               ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset
                focus:ring-indigo-600 sm:text-sm sm:leading-6 px-1" placeholder="Last Name"/>
@@ -25,7 +34,7 @@
           <div>
             <label for="text" class="block font-bold text-lg leading-6 text-gray-100">Church</label>
             <div class="mt-2">
-              <input  name="text" type="text" autocomplete="text"  
+              <input name="church" type="text" autocomplete="text"  
               class="block w-full rounded-md border-0 py-1.5 text-blue-900 shadow-sm ring-1 
               ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset
                focus:ring-indigo-600 sm:text-sm sm:leading-6" />
@@ -34,19 +43,14 @@
           <div>
             <label for="date" class="block font-bold text-lg leading-6 text-gray-100">Date of birth</label>
             <div class="mt-2">
-              <input name="date" type="date"   
+              <input name="dateOfBirth"
+                type="date"
+                v-model="dateOfBirth"
+                @input="updateAge"
               class="block w-full rounded-md border-0 py-1.5 text-blue-900 shadow-sm ring-1 
               ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset
                focus:ring-indigo-600 sm:text-sm sm:leading-6 px-2" />
-            </div>
-          </div>
-          <div>
-            <label for="email" class="block font-bold text-lg leading-6 text-gray-100">Email address</label>
-            <div class="mt-2">
-              <input name="email" type="email" autocomplete="email"  
-              class="block w-full rounded-md border-0 py-1.5 text-blue-900 shadow-sm ring-1 
-              ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset
-               focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+               <span class="text-gray-400" v-if="age !== null"> You are {{ age }} years old.</span>
             </div>
           </div>
   
@@ -59,7 +63,7 @@
             </div>
             <div class="mt-2">
               <input name="password" type="password" autocomplete="current-password" 
-              class="block w-full rounded-md border-0 py-1.5 text-blue-900 shadow-sm ring-1 ring-inset
+              class="block w-full rounded-md border-0 py-1.5 px-2 text-blue-900 font-bold shadow-sm ring-1 ring-inset
                ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 
                sm:text-sm sm:leading-6" />
             </div>
@@ -82,3 +86,85 @@
       </div>
     </div>
   </template>
+
+<script>
+import axios from 'axios';
+
+export default{
+  name: 'RegisterView',
+  data() {
+  return {
+    email: '',
+    firstName: '',
+    lastName: '',
+    church: '',
+    dateOfBirth: '',
+    password: '',
+    age: null,
+  };
+},
+
+methods: {
+  calculateAge(dateOfBirth) {
+      const birthDate = new Date(dateOfBirth);
+      const currentDate = new Date();
+      let age = currentDate.getFullYear() - birthDate.getFullYear();
+      const monthDiff = currentDate.getMonth() - birthDate.getMonth();
+      if (monthDiff < 0 || (monthDiff === 0 && currentDate.getDate() < birthDate.getDate())) {
+        age--;
+      }
+      return age;
+    },
+
+    // Update the age when the date of birth is changed
+    updateAge() {
+      if (this.dateOfBirth) {
+        this.age = this.calculateAge(this.dateOfBirth);
+      } else {
+        this.age = null;
+      }
+    },
+
+
+    async registerUser() {
+      if (this.age === null) {
+        alert('Please enter a valid date of birth.');
+        return;
+      }
+
+      if (this.age < 13 || this.age > 25) {
+        alert('You need to be above 13 and below 25 years old to register.');
+        return;
+      }
+
+      try {
+        const formData = new FormData();
+        formData.append('email', this.email);
+        formData.append('firstName', this.firstName);
+        formData.append('lastName', this.lastName);
+        formData.append('church', this.church);
+        //formData.append('age', this.age);
+        formData.append('password', this.password);
+
+        // Calculate age from date of birth
+        const age = this.calculateAge(this.dateOfBirth);
+        formData.append('age', age);
+
+        formData.append('password', this.password);
+
+        const response = 
+        await axios
+        .post('https://quizzes-bmo0.onrender.com/user/register', formData);
+
+            // Handle the response as needed
+            console.log('user is registered:', response.data);
+        } catch (error) {
+        console.error("An error occurred while registering the user:", error.response || error.message);
+      }
+
+    }
+  }
+
+};
+
+</script>
