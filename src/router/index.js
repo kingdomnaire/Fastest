@@ -50,7 +50,7 @@ const router = createRouter({
 });
 
 const isAuthenticated = () =>{
-  const storedLogin = true //localStorage.getItem('loginRequest');
+  const storedLogin = localStorage.getItem('login');
   
   // Check if both email and password are present in local storage
   return JSON.parse(storedLogin || '{}');
@@ -59,7 +59,7 @@ const isAuthenticated = () =>{
 router.beforeEach((to, from, next) => {
   const isLoggedIn = isAuthenticated().email
 
-  if (to.meta.requiresAuth && isLoggedIn) {
+  if (to.meta.requiresAuth && !isLoggedIn) {
     next('/login')
     }else{
       next()

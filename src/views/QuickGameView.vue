@@ -89,29 +89,9 @@ export default{
         });
         const questions = [
             {
-                question: "Who was the father of Methuselah?",
-                answer: 3,
-                choices: ["Adam", "Noah", "Enoch", "Lamech"],
-            },
-            {
-                question: "Who was the first king of Israel?",
-                answer: 1,
-                choices: ["Saul", "David", "Solomon", "Samuel"],
-            },
-            {
                 question: "Who wrote the book of Job?",
-                answer: 1,
-                choices: ["Moses", "David", "Solomon", "Job himself"],
-            },
-            {
-                question: "Who was the high priest at the time of Jesus' crucifixion",
-                answer: 1,
-                choices: ["Caiaphas", "Annas", "Nicodemus", "Gamaliel"],
-            },
-            {
-                question: "Who was the mother of John the Baptist?",
                 answer: 2,
-                choices: ["Mary", "Elizabeth", "Rachel", "Sarah"],
+                choices: ["David","Moses", "Solomon", "Job himself"],
             },
         ];
         const loadQuestions = () => {
