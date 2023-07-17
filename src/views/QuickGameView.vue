@@ -73,6 +73,7 @@
 <script>
 import { onMounted, ref } from 'vue';
 import QuizCompleteOverlay from '@/components/QuizCompleteOverlay.vue';
+import axios from 'axios';
 export default{
     name: "QuickGame",
     setup() {
@@ -176,6 +177,33 @@ export default{
       console.log("Timestamp:", formattedTimestamp);
       // Here you can make an API call to send the question and 
       //timestamp to your backend or perform any other database operations
+
+      // Get the _id value from the login local storage
+      const loginData = JSON.parse(localStorage.getItem("login"));
+      const _id = loginData?._id;
+
+      if (_id) {
+    // Create the data to be sent in the POST request
+    const data = {
+      id: _id,
+      time: formattedTimestamp,
+    };
+
+    // Perform the POST request using Axios
+    axios.post("https://quizzes-bmo0.onrender.com/fingers", data, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        console.log("Response:", response.data);
+        // Handle the response data if needed
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        // Handle the error if needed
+      });
+  }
     };
 
         //when the Quiz ends
