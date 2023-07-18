@@ -63,10 +63,8 @@
                 Play Game
               </router-link>
             </li>
-            <li class="text-sm font-bold text-gray-800 hover:text-blue-400">
-              <router-link to="#">
-                Score
-              </router-link>
+            <li class="text-sm font-bold text-gray-800 hover:text-blue-400" @click="logout">
+                Logout
             </li>
           </ul>
         </nav>
@@ -80,5 +78,14 @@
         showMenu: false,
       };
     },
+
+    methods: {
+    logout() {
+      // Remove the login data from localStorage
+      localStorage.removeItem("login");
+      // Redirect the user to the login page
+      this.$router.push("/login");
+    },
+  },
   };
   </script>
