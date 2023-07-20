@@ -128,31 +128,32 @@ export default{
         };
 
         const onOptionClicked = (choice, item) => {
-            if (canClick) {
-                const divContainer = itemRef[item];
-                const optionID = item + 1;
-                if (currentQuestion.value.answer == optionID) {
-                    console.log("correct Answer");
-                    score.value += 1;
-                    divContainer.classList.add("option-correct");
-                    divContainer.classList.remove("option-default");
-                }
-                else {
-                    console.log("wrong answer");
-                    divContainer.classList.add("option-wrong");
-                    divContainer.classList.remove("option-default");
-                }
-                /// timer.value = 100;
-                  canClick = false;
-                  const timestamp = new Date().toISOString(); // Get the current timestamp
-                  saveQuestionResponse(currentQuestion.value.question, timestamp); // Save the question response with timestamp
-                    clearSelected(divContainer);
-                  console.log(choice, item);
-                      }
-            else {
-                console.log("cant select question");
-            }
-        };
+  if (canClick) {
+    const divContainer = itemRef[item];
+    const optionID = item + 1;
+    const isCorrect = currentQuestion.value.answer === optionID;
+    
+    if (isCorrect) {
+      console.log("correct Answer");
+      score.value += 1;
+      divContainer.classList.add("option-correct");
+      divContainer.classList.remove("option-default");
+    } else {
+      console.log("wrong answer");
+      divContainer.classList.add("option-wrong");
+      divContainer.classList.remove("option-default");
+    }
+    
+    canClick = false;
+    const timestamp = new Date().toISOString(); // Get the current timestamp
+    saveQuestionResponse(currentQuestion.value.question, timestamp, isCorrect); // Save the question response with timestamp and correctness
+    clearSelected(divContainer);
+    console.log(choice, item);
+  } else {
+    console.log("can't select question");
+  }
+};
+
 
         let interval; // Variable to hold the timer interval
         const countDownTimer = function () {
@@ -170,41 +171,46 @@ export default{
         };
 
         // Save question response to the database (dummy implementation)
-    const saveQuestionResponse = (question, timestamp) => {
-      console.log("Question:", question);
-      const date = new Date(timestamp);
-      const formattedTimestamp = `${date.toLocaleString()}:${date.getMilliseconds()}`;
-      console.log("Timestamp:", formattedTimestamp);
-      // Here you can make an API call to send the question and 
-      //timestamp to your backend or perform any other database operations
-
-      // Get the _id value from the login local storage
-      const loginData = JSON.parse(localStorage.getItem("login"));
-      const _id = loginData?._id;
-
-      if (_id) {
-    // Create the data to be sent in the POST request
-    const data = {
-      id: _id,
-      time: formattedTimestamp,
-    };
-
-    // Perform the POST request using Axios
-    axios.post("https://quizzes-bmo0.onrender.com/fingers", data, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => {
-        console.log("Response:", response.data);
-        // Handle the response data if needed
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        // Handle the error if needed
-      });
+        const saveQuestionResponse = (question, timestamp, isCorrect) => {
+  if (isCorrect) {
+    console.log("Question:", question);
+    const date = new Date(timestamp);
+    const formattedTimestamp = `${date.toLocaleString()}:${date.getMilliseconds()}`;
+    console.log("Timestamp:", formattedTimestamp);
+    
+    // Here you can make an API call to send the question and 
+    // timestamp to your backend or perform any other database operations
+  
+    // Get the _id value from the login local storage
+    const loginData = JSON.parse(localStorage.getItem("login"));
+    const _id = loginData?._id;
+  
+    if (_id) {
+      // Create the data to be sent in the POST request
+      const data = {
+        id: _id,
+        time: formattedTimestamp,
+      };
+  
+      // Perform the POST request using Axios
+      axios
+        .post("https://quizzes-bmo0.onrender.com/fingers", data, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+        .then((response) => {
+          console.log("Response:", response.data);
+          // Handle the response data if needed
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          // Handle the error if needed
+        });
+    }
   }
-    };
+};
+
 
         //when the Quiz ends
         const onQuizEnd = function(){

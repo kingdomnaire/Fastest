@@ -16,8 +16,8 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="player in players" :key="player.id" class="bg-blue-900 w-auto h-10 text-gray-200 font-bold">
-              <td class="pr-10 pl-4">{{ player.firstName + ' ' + player.lastName }}</td>
+            <tr v-for="player in players" :key="player.id" class="bg-blue-900 w-auto h-5 text-gray-200 font-bold">
+              <td class="pr-10 pl-4">{{ player.user.firstName + ' ' + player.user.lastName }}</td>
               <td class="pr-4 pl-2">{{ player.time }}</td>
             </tr>
           </tbody>
