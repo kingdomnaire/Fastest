@@ -43,10 +43,10 @@ const routes = [
   },
 
   // catch-all route for undefined routes
-  {
-    path: '/:pathMatch(.*)*',
-    redirect: '/dashboard',
-  },
+  // {
+  //   path: '/:pathMatch(.*)*',
+  //   redirect: '/dashboard',
+  // },
 ]
 
 const router = createRouter({

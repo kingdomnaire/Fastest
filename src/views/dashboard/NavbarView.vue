@@ -1,6 +1,6 @@
 <template>
     <div>
-      <div class="bg-gray-100">
+      <div class="bg-gray-100 ">
         <nav
           class="
             container
@@ -12,7 +12,7 @@
         >
           <div class="flex items-center justify-between">
             <router-link
-              to="/"
+              to="#"
               class="
                 text-xl
                 font-bold
@@ -63,7 +63,7 @@
                 Play Game
               </router-link>
             </li>
-            <li class="text-sm font-bold text-gray-800 hover:text-blue-400" @click="logout">
+            <li class="text-sm font-bold text-gray-800 hover:text-blue-400 cursor-pointer" @click="logout">
                 Logout
             </li>
           </ul>
