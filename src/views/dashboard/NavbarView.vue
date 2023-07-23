@@ -12,7 +12,7 @@
         >
           <div class="flex items-center justify-between">
             <router-link
-              to="#"
+              to="/"
               class="
                 text-xl
                 font-bold
@@ -59,7 +59,7 @@
             "
           >
             <li class="text-sm font-bold text-gray-800 hover:text-blue-400">
-              <router-link to="#"><!-- to="/QuickGameView"-->
+              <router-link to="/"><!-- to="/QuickGameView"-->
                 Play Game
               </router-link>
             </li>
