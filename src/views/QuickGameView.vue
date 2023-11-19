@@ -212,7 +212,7 @@ export default{
                     loadQuestions();
                     countDownTimer();
                 }
-            }, 100);
+            }, 200);
         };
 
         // Save question response to the database (dummy implementation)
