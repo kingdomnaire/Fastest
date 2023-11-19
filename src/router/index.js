@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-//import QuickGameView from '../views/QuickGameView.vue'
+import QuickGameView from '../views/QuickGameView.vue'
 import PlayerScoreView from '@/views/dashboard/PlayerScoreView.vue'
 import LoginView from '@/views/LoginView.vue'
 import RegisterView from '@/views/RegisterView.vue'
@@ -7,12 +7,12 @@ import RegisterView from '@/views/RegisterView.vue'
 
 
 const routes = [
-  // {
-  //   path: '/',
-  //   name: 'QuickGame',
-  //   component: QuickGameView,
-  //   meta: { requiresAuth: true },
-  // },
+  {
+    path: '/',
+    name: 'QuickGame',
+    component: QuickGameView,
+    meta: { requiresAuth: true },
+  },
   {
     path: '/dashboard',
     name: 'Dashboard',
@@ -42,11 +42,11 @@ const routes = [
     meta: { requiresAuth: true },
   },
 
-  // catch-all route for undefined routes
-  // {
-  //   path: '/:pathMatch(.*)*',
-  //   redirect: '/dashboard',
-  // },
+  //catch-all route for undefined routes
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: '/dashboard',
+  },
 ]
 
 const router = createRouter({

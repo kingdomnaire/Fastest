@@ -80,7 +80,7 @@ export default{
         //data
         let canClick = true;
         let score = ref(0);
-        let timer = ref(100);
+        let timer = ref(1000);
         let endOfQuiz = ref(false);
         let questionCounter = ref(0);
         const currentQuestion = ref({
@@ -90,9 +90,54 @@ export default{
         });
         const questions = [
             {
-                question: "Who wrote the book of Job?",
+                question: "Which prophet prophesied the downfall of Nineveh?",
                 answer: 2,
-                choices: ["David","Moses", "Solomon", "Job himself"],
+                choices: ["Jonah","Nahum", "Solomon", "Obadiah"],
+            },
+            {
+                question: "Who killed the Canaanite king, Sisera?",
+                answer: 4,
+                choices: ["Samson","Gideon", "Deborah", "Jael"],
+            },
+            {
+                question: "Which minor prophet saw a vision of a flying scroll and a woman in a basket?",
+                answer: 1,
+                choices: ["Zechariah","Hosea", "Nahum", "Malachi"],
+            },
+            {
+                question: "Which minor prophet spoke about the restoration of Israel and the coming of Elijah?",
+                answer: 4,
+                choices: ["Joel","Malachi", "Amos", "Habakkuk"],
+            },
+            {
+                question: "Which Psalm begins with the words, O Lord, 'You have searched me and known me'?",
+                answer: 3,
+                choices: ["Psalm 29","Psalm 119", "Psalm 139", "Psalm 27"],
+            },
+            {
+                question: "Which Psalm declares, 'Blessed is he whose transgression is forgiven, Whose sin is covered'?",
+                answer: 3,
+                choices: ["Psalm 105","Psalm 19", "Psalm 32", "Psalm 51"],
+            },
+            {
+                question: "On what mountain did Jesus transfigure before his disciples?",
+                answer: 4,
+                choices: ["Mount Ararat","Mount Sinai", "Mount Zion", "Mount Tabor"],
+            },
+            {
+                question: "What were the names of the two thieves crucified alongside Jesus?",
+                answer: 1,
+                choices: ["Dismas and Gestas","Jaala and Uri", "Joses and Philemon", "Kemuel and Amaziah"],
+            },
+            {
+                question: "What was the name of the high priest's servant whose ear was cut off during Jesus' arrest?",
+                answer: 3,
+                choices: ["Caiaphas","Barabbas", "Malchus", "Peter"],
+            },
+            {
+                question: "Who was the Roman governor who kept Paul imprisoned for two years?",
+                answer: 1,
+                choices: ["Felix"," Pilate", "Festus", " Herod"],
             },
         ];
         const loadQuestions = () => {
@@ -107,7 +152,7 @@ export default{
             else {
                 // no more question
                 endOfQuiz.value = true;
-                //console.log("Out of questions");
+                //console.log("Out of questions",score.value );
             }
         };
         //methods/functions to know what was clicked
@@ -148,7 +193,7 @@ export default{
     const timestamp = new Date().toISOString(); // Get the current timestamp
     saveQuestionResponse(currentQuestion.value.question, timestamp, isCorrect); // Save the question response with timestamp and correctness
     clearSelected(divContainer);
-    console.log(choice, item);
+    //console.log(choice, item);
   } else {
     console.log("can't select question");
   }
@@ -175,7 +220,7 @@ export default{
   if (isCorrect) {
     console.log("Question:", question);
     const date = new Date(timestamp);
-    const formattedTimestamp = `${date.toLocaleString()}:${date.getMilliseconds()}`;
+    const formattedTimestamp = `${date.toLocaleString()}:${date.getMilliseconds()}:${" score: " + score.value}`;
     console.log("Timestamp:", formattedTimestamp);
     
     // Here you can make an API call to send the question and 
@@ -190,6 +235,7 @@ export default{
       const data = {
         id: _id,
         time: formattedTimestamp,
+        //score: score.value,
       };
   
       // Perform the POST request using Axios

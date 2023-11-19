@@ -10,14 +10,14 @@
       <template v-else>
         <table>
           <thead>
-            <tr class="bg-blue-600 w-auto h-10 text-gray-300">
+            <tr class="bg-blue-600 h-10 text-gray-200">
               <th class="pr-10 pl-2">Player Name</th>
               <th class="pl-10 pr-2">Player Timestamp</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="player in players" :key="player.id" class="bg-blue-900 w-auto h-5 text-gray-200 font-bold">
-              <td class="pr-10 pl-4">{{ player.user.firstName + ' ' + player.user.lastName }}</td>
+            <tr v-for="player in players" :key="player.id" class="bg-blue-900  h-10 text-gray-200 font-bold">
+              <td class="pr-40 pl-4">{{ player.user.firstName + ' ' + player.user.lastName }}</td>
               <td class="pr-4 pl-2">{{ player.time }}</td>
             </tr>
           </tbody>
