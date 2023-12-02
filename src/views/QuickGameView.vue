@@ -90,29 +90,29 @@ export default{
         });
         const questions = [
             {
-                question: "Which prophet prophesied the downfall of Nineveh?",
+                question: "Which king of Judah was killed in battle against the Syrians?",
                 answer: 2,
-                choices: ["Jonah","Nahum", "Solomon", "Obadiah"],
+                choices: ["King Asa,","King Jehoram", "King Jehoshaphat", "King Joash"],
             },
             {
-                question: "Who killed the Canaanite king, Sisera?",
-                answer: 4,
-                choices: ["Samson","Gideon", "Deborah", "Jael"],
-            },
-            {
-                question: "Which minor prophet saw a vision of a flying scroll and a woman in a basket?",
-                answer: 1,
-                choices: ["Zechariah","Hosea", "Nahum", "Malachi"],
-            },
-            {
-                question: "Which minor prophet spoke about the restoration of Israel and the coming of Elijah?",
-                answer: 4,
-                choices: ["Joel","Malachi", "Amos", "Habakkuk"],
-            },
-            {
-                question: "Which Psalm begins with the words, O Lord, 'You have searched me and known me'?",
+                question: "According to the Gospel of John, what is the significance of the term 'Logos' in the opening verses?",
                 answer: 3,
-                choices: ["Psalm 29","Psalm 119", "Psalm 139", "Psalm 27"],
+                choices: ["The Redeemer","The Light", "The Word", "The Shepherd"],
+            },
+            {
+                question: "In the Pauline epistles, what is the term used for the doctrine of the end times and the return of Christ?",
+                answer: 3,
+                choices: ["Christology","Soteriology", "Eschatology", "Pneumatology"],
+            },
+            {
+                question: "What is the significance of the term 'kenosis' in Christian theology?",
+                answer: 2,
+                choices: [" The atonement","The incarnation of Christ", "The indwelling of the Holy Spirit", "The resurrection"],
+            },
+            {
+                question: "According to the Gospel of Matthew, what is the significance of the 'Magi' visiting Jesus?",
+                answer: 4,
+                choices: ["They represent the three patriarchs","They symbolize the three stages of life", "They are represent angels worshipping", "They signify the inclusion of Gentiles"],
             },
             {
                 question: "Which Psalm declares, 'Blessed is he whose transgression is forgiven, Whose sin is covered'?",
@@ -120,14 +120,14 @@ export default{
                 choices: ["Psalm 105","Psalm 19", "Psalm 32", "Psalm 51"],
             },
             {
-                question: "On what mountain did Jesus transfigure before his disciples?",
+                question: "Who led the Israelites to victory against the Canaanites at Mount Tabor?",
                 answer: 4,
-                choices: ["Mount Ararat","Mount Sinai", "Mount Zion", "Mount Tabor"],
+                choices: ["Gideon","Samson", "Jephthah", "Deborah and Barak"],
             },
             {
                 question: "What were the names of the two thieves crucified alongside Jesus?",
-                answer: 1,
-                choices: ["Dismas and Gestas","Jaala and Uri", "Joses and Philemon", "Kemuel and Amaziah"],
+                answer: 3,
+                choices: ["Joses and Philemon","Jaala and Uri", "Dismas and Gestas", "Kemuel and Amaziah"],
             },
             {
                 question: "What was the name of the high priest's servant whose ear was cut off during Jesus' arrest?",
